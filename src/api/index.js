@@ -1,11 +1,11 @@
 import { httpClient } from './httpClient';
-import { todosApi } from './todosApi';
+import { launchesApi } from './launchesApi';
 
 export function apiFactory(http) {
   return {
-    todos: todosApi(http)
+    launches: launchesApi(http)
   };
 }
 
-const http = httpClient('http://localhost:3000');
+const http = httpClient('https://api.spacexdata.com/v3');
 export const api = apiFactory(http);

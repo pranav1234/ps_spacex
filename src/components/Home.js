@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 
 import { api } from '../api';
 import { useServerData } from '../state/serverDataContext';
+import Button from '@material-ui/core/Button';
 
 const Home = () => {
   const serverTodos = useServerData(data => {
+    console.log('data: ', data);
     return data.todos || [];
   });
   const [text, setText] = useState('');
@@ -13,6 +15,9 @@ const Home = () => {
   return (
     <div>
       <h1>Home page</h1>
+      <Button variant="contained" color="primary">
+        Hello World
+      </Button>
 
       <form
         onSubmit={e => {
@@ -49,9 +54,9 @@ const Home = () => {
 };
 
 Home.fetchData = () => {
-  return api.todos.all().then(todos => {
+  return api.launches.launches().then(launches => {
     return {
-      todos
+      launches
     };
   });
 };

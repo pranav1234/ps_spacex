@@ -38,7 +38,11 @@ const cssLinks = bundles => {
     return '';
   }
 
-  const mainCSS = assetManifest['main.css'];
+  const mainCSS =
+    assetManifest[
+      ('main.css',
+      'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap')
+    ];
   const bundleFilePaths = bundles
     .filter(bundle => bundle.file.match(/\.css$/))
     .map(cssBundle => `${PUBLIC_URL}/${cssBundle.file}`);
