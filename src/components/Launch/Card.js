@@ -34,7 +34,7 @@ export default function LaunchCard({
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
-          style={{ height: 282 }}
+          style={{ height: 282, backgroundSize: 'contain' }}
           image={mission_patch_small}
           title="Contemplative Reptile"
         />
@@ -86,25 +86,6 @@ export default function LaunchCard({
               {launch_success ? 'yes' : 'no'}
             </Typography>
           </div>{' '}
-          {/* <div>
-            <Typography
-              display="inline"
-              variant="body2"
-              color="textPrimary"
-              component="p"
-            >
-              Successfull Landing:
-            </Typography>
-            <Typography
-              display="inline"
-              variant="body2"
-              color="textSecondary"
-              component="p"
-              style={{ marginLeft: 4 }}
-            >
-              {launch_landing}
-            </Typography>
-          </div> */}
         </CardContent>
       </CardActionArea>
     </Card>

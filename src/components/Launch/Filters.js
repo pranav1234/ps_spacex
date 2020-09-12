@@ -7,6 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
 import { NavLink } from 'react-router-dom';
 
 import { Divider } from '@material-ui/core';
@@ -43,67 +46,58 @@ export default function Filters({
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Filters
-          </Typography>
-          <Typography color="textSecondary" component="div">
-            Launch Year
-          </Typography>
-          <Divider />
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between'
-            }}
-          >
-            {getYearArray().map(year => (
-              <Button
-                style={{ margin: 10 }}
-                variant="contained"
-                color="primary"
-                disabled={selectedYear === year ? true : false}
-                onClick={() => onYearSearch(year)}
-              >
-                {year}
-              </Button>
-            ))}
-          </div>
-          <Typography color="textSecondary" component="div">
-            Successful Launch
-          </Typography>
-          <Divider />
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between'
-            }}
-          >
+    <Paper elevation={3}>
+      <Typography gutterBottom variant="h5" component="h2">
+        Filters
+      </Typography>
+      <Typography color="textSecondary" component="div">
+        Launch Year
+      </Typography>
+      <Divider />
+
+      <Grid spacing={3} container>
+        {getYearArray().map(year => (
+          <Grid xs={6} sm={2} md={6} item>
             <Button
-              onClick={() => onSuccessLaunchSearch(true)}
               style={{ margin: 10 }}
               variant="contained"
               color="primary"
-              disabled={isLaunchSuccessFilter === true}
+              disabled={selectedYear === year ? true : false}
+              onClick={() => onYearSearch(year)}
             >
-              True
+              {year}
             </Button>
-            <Button
-              onClick={() => onSuccessLaunchSearch(false)}
-              style={{ margin: 10 }}
-              variant="contained"
-              color="primary"
-              disabled={isLaunchSuccessFilter === false}
-            >
-              False
-            </Button>
-          </div>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          </Grid>
+        ))}
+      </Grid>
+      <Typography color="textSecondary" component="div">
+        Successful Launch
+      </Typography>
+      <Divider />
+      <Grid spacing={3} container>
+        <Grid xs={6} sm={2} md={6} item>
+          <Button
+            onClick={() => onSuccessLaunchSearch(true)}
+            style={{ margin: 10 }}
+            variant="contained"
+            color="primary"
+            disabled={isLaunchSuccessFilter === true}
+          >
+            True
+          </Button>
+        </Grid>
+        <Grid xs={6} sm={2} md={6} item>
+          <Button
+            onClick={() => onSuccessLaunchSearch(false)}
+            style={{ margin: 10 }}
+            variant="contained"
+            color="primary"
+            disabled={isLaunchSuccessFilter === false}
+          >
+            False
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 }

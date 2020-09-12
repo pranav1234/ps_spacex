@@ -61,12 +61,8 @@ const Home = ({ location, history }) => {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={3}>
-      <Grid xs={2} item>
-        {/* {launches.map(({ mission_name }) => (
-          <div>{mission_name}</div>
-        ))} */}
-
+    <Grid container>
+      <Grid xs={12} md={2} item>
         <Filters
           onYearSearch={onYearSearch}
           selectedYear={selectedYear}
@@ -74,7 +70,7 @@ const Home = ({ location, history }) => {
           isLaunchSuccessFilter={isLaunchSuccessFilter}
         />
       </Grid>
-      <Grid xs={10} item>
+      <Grid xs={12} md={10} item>
         <Grid spacing={3} container>
           {launches.map(
             ({
@@ -87,8 +83,7 @@ const Home = ({ location, history }) => {
               launch_landing
             }) => {
               return (
-                <Grid key={flight_number} xs={3} item>
-                  {/* {flight_number} */}
+                <Grid key={flight_number} xs={12} md={3} sm={6} item>
                   <Card
                     mission_patch_small={mission_patch_small}
                     mission_name={mission_name}
