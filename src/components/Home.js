@@ -24,6 +24,11 @@ const Home = ({ location, history }) => {
     history.push({
       search: queryString.stringify(searchParams)
     });
+    api.launches
+      .launches('?' + queryString.stringify(searchParams))
+      .then(launches => {
+        setLaunches(launches);
+      });
   };
   const onSuccessLaunchSearch = isLaunchSuccessSearch => {
     setIsLaunchSuccessFilter(isLaunchSuccessSearch);
@@ -33,15 +38,13 @@ const Home = ({ location, history }) => {
     history.push({
       search: queryString.stringify(searchParams)
     });
-  };
-
-  useEffect(() => {
-    if (location.search) {
-      api.launches.launches(location.search).then(launches => {
+    api.launches
+      .launches('?' + queryString.stringify(searchParams))
+      .then(launches => {
         setLaunches(launches);
       });
-    }
-  }, [location.search]);
+  };
+
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1
