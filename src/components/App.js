@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import { Button, Container, AppBar, Typography } from '@material-ui/core';
 
 import Head from './Head';
 
@@ -19,12 +20,9 @@ const App = () => (
     <Head />
 
     <nav aria-label="main navigation">
-      <NavLink exact to="/" activeClassName="active">
-        Home
-      </NavLink>{' '}
-      <NavLink exact to="/about" activeClassName="active">
-        About
-      </NavLink>
+      <AppBar position="static">
+        <Typography variant="h6">SpaceX Launch Programs</Typography>
+      </AppBar>
     </nav>
 
     <main className="main">

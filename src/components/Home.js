@@ -2,54 +2,65 @@ import React, { useState } from 'react';
 
 import { api } from '../api';
 import { useServerData } from '../state/serverDataContext';
-import Button from '@material-ui/core/Button';
+import Card from './Launch/Card';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const Home = () => {
-  const serverTodos = useServerData(data => {
+  const serverLaunches = useServerData(data => {
     console.log('data: ', data);
-    return data.todos || [];
+    return data.launches || [];
   });
   const [text, setText] = useState('');
-  const [todos, setTodos] = useState(serverTodos);
+  const [todos, setTodos] = useState('');
+  const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1
+    },
+    paper: {
+      height: 140,
+      width: 100
+    },
+    control: {
+      padding: theme.spacing(2)
+    }
+  }));
+
+  const classes = useStyles();
 
   return (
-    <div>
-      <h1>Home page</h1>
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
-
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-
-          const newTodo = {
-            text
-          };
-
-          api.todos.create(newTodo).then(res => {
-            setTodos([...todos, res]);
-            setText('');
-          });
-        }}
-      >
-        <label htmlFor="todo">Add a todo</label>
-        <br />
-        <input
-          id="todo"
-          type="text"
-          value={text}
-          autoComplete="off"
-          onChange={e => setText(e.target.value)}
-        />
-      </form>
-
-      <ul>
-        {todos.map(todo => (
-          <li key={todo.id}>{todo.text}</li>
-        ))}
-      </ul>
-    </div>
+    <Grid container spacing={3}>
+      <Grid xs={3} item>
+        <Card missionName={'Filters'} />
+      </Grid>
+      <Grid xs={9} spacing={3} container>
+        {serverLaunches.map(
+          ({
+            mission_name,
+            links: { mission_patch_small },
+            flight_number,
+            mission_id,
+            launch_year,
+            launch_success,
+            launch_landing
+          }) => {
+            return (
+              <Grid key={flight_number} xs={3} item>
+                <Card
+                  mission_patch_small={mission_patch_small}
+                  mission_name={mission_name}
+                  flight_number={flight_number}
+                  mission_id={mission_id}
+                  launch_year={launch_year}
+                  launch_success={launch_success}
+                  launch_landing={launch_landing}
+                />
+              </Grid>
+            );
+          }
+        )}
+      </Grid>
+    </Grid>
   );
 };
 
