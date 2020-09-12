@@ -5,10 +5,10 @@ import { useServerData } from '../state/serverDataContext';
 import Card from './Launch/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Filters from './Launch/Filters';
 
 const Home = () => {
   const serverLaunches = useServerData(data => {
-    console.log('data: ', data);
     return data.launches || [];
   });
   const [text, setText] = useState('');
@@ -30,8 +30,8 @@ const Home = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid xs={3} item>
-        <Card missionName={'Filters'} />
+      <Grid xs={2} item>
+        <Filters />
       </Grid>
       <Grid xs={9} spacing={3} container>
         {serverLaunches.map(
@@ -64,12 +64,14 @@ const Home = () => {
   );
 };
 
-Home.fetchData = () => {
-  return api.launches.launches().then(launches => {
-    return {
-      launches
-    };
-  });
+Home.fetchData = props => {
+  return api.launches
+    .launches(props._parsedUrl && props._parsedUrl.search)
+    .then(launches => {
+      return {
+        launches
+      };
+    });
 };
 
 export default Home;
