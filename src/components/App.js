@@ -10,11 +10,6 @@ const LoadableHome = Loadable({
   loading: () => <div>Loading...</div>
 });
 
-const LoadableAbout = Loadable({
-  loader: () => import(/* webpackChunkName: 'about' */ './about/About'),
-  loading: () => <div>Loading...</div>
-});
-
 const App = () => (
   <div className="app">
     <Head />
@@ -28,7 +23,6 @@ const App = () => (
     <main className="main">
       <Switch>
         <Route exact path="/" component={LoadableHome} />
-        <Route path="/about" component={LoadableAbout} />
       </Switch>
     </main>
 

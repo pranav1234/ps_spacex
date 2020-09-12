@@ -34,7 +34,7 @@ export default function LaunchCard({
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
-          style={{ height: 248 }}
+          style={{ height: 282 }}
           image={mission_patch_small}
           title="Contemplative Reptile"
         />
