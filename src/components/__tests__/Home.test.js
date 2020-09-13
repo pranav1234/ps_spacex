@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-
+import { shallow, mount } from 'enzyme';
+import 'jsdom-global/register'; //at the top of file , even  , before importing react
 import Home from '../Home';
 import { ServerDataProvider } from '../../state/serverDataContext';
 import '@testing-library/jest-dom';
@@ -227,14 +227,24 @@ const launchData = {
     }
   ]
 };
-describe('<Home />', () => {
-  it('renders filter section ', () => {
-    const wrapped = shallow(
-      <ServerDataProvider value={launchData}>
-        <Home />
-      </ServerDataProvider>
-    );
-    console.log(wrapped.debug());
+describe('renders <Home /> properly', () => {
+  const wrapped = mount(
+    <ServerDataProvider value={launchData}>
+      <Home />
+    </ServerDataProvider>
+  );
+  it('should render home component ', () => {
     expect(wrapped.find('Home')).to.have.lengthOf(1);
+  });
+  it('should render filter component ', () => {
+    expect(wrapped.find('Filters')).to.have.lengthOf(1);
+  });
+  it('should render card component ', () => {
+    expect(wrapped.find('.space-launch-container')).to.be.present();
+  });
+  it('should render 2 launch card  ', () => {
+    expect(
+      wrapped.find('.space-launch-container').find('LaunchCard')
+    ).to.have.lengthOf(2);
   });
 });

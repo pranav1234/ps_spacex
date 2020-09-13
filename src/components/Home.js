@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { api } from '../api';
 import { useServerData } from '../state/serverDataContext';
-import Card from './Launch/Card';
+import LaunchCard from './Launch/LaunchCard';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Launch/Filters';
@@ -71,7 +71,7 @@ const Home = ({ location, history }) => {
         />
       </Grid>
       <Grid xs={12} md={10} item>
-        <Grid spacing={3} container>
+        <Grid className="space-launch-container" spacing={3} container>
           {launches.map(
             ({
               mission_name,
@@ -84,7 +84,7 @@ const Home = ({ location, history }) => {
             }) => {
               return (
                 <Grid key={flight_number} xs={12} md={3} sm={6} item>
-                  <Card
+                  <LaunchCard
                     mission_patch_small={mission_patch_small}
                     mission_name={mission_name}
                     flight_number={flight_number}
