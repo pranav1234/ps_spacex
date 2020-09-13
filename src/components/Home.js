@@ -6,8 +6,24 @@ import LaunchCard from './Launch/LaunchCard';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Filters from './Launch/Filters';
-import queryString from 'query-string';
+var parseQueryString = function(queryString) {
+  var params = {},
+    queries,
+    temp,
+    i,
+    l;
 
+  // Split into key/value pairs
+  queries = queryString.split('&');
+
+  // Convert the array of strings into an object
+  for (i = 0, l = queries.length; i < l; i++) {
+    temp = queries[i].split('=');
+    params[temp[0]] = temp[1];
+  }
+
+  return params;
+};
 const Home = ({ location, history }) => {
   const serverLaunches = useServerData(data => {
     return data.launches || [];
@@ -18,31 +34,41 @@ const Home = ({ location, history }) => {
 
   const onYearSearch = year => {
     setSelectedYear(year);
-    let params = queryString.parse(location.search);
-    let searchParams = { ...params, launch_year: year };
+    let params = location.search && location.search.substring(1);
+    let searchParams = { launch_year: year };
+
+    if (params) {
+      let parsedParams = parseQueryString(params);
+      searchParams = { ...parsedParams, launch_year: year };
+    }
+    var queryString = Object.keys(searchParams)
+      .map(key => key + '=' + searchParams[key])
+      .join('&');
 
     history.push({
-      search: queryString.stringify(searchParams)
+      search: queryString
     });
-    api.launches
-      .launches('?' + queryString.stringify(searchParams))
-      .then(launches => {
-        setLaunches(launches);
-      });
+    api.launches.launches('?' + queryString).then(launches => {
+      setLaunches(launches);
+    });
   };
   const onSuccessLaunchSearch = isLaunchSuccessSearch => {
     setIsLaunchSuccessFilter(isLaunchSuccessSearch);
-    let params = queryString.parse(location.search);
-    let searchParams = { ...params, launch_success: isLaunchSuccessSearch };
-
+    let params = location.search && location.search.substring(1);
+    let searchParams = { launch_success: isLaunchSuccessSearch };
+    if (params) {
+      let parsedParams = parseQueryString(params);
+      searchParams = { ...parsedParams, launch_success: isLaunchSuccessSearch };
+    }
+    var queryString = Object.keys(searchParams)
+      .map(key => key + '=' + searchParams[key])
+      .join('&');
     history.push({
-      search: queryString.stringify(searchParams)
+      search: queryString
     });
-    api.launches
-      .launches('?' + queryString.stringify(searchParams))
-      .then(launches => {
-        setLaunches(launches);
-      });
+    api.launches.launches('?' + queryString).then(launches => {
+      setLaunches(launches);
+    });
   };
 
   const useStyles = makeStyles(theme => ({
