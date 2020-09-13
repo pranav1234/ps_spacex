@@ -98,5 +98,13 @@
     "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@types/jest": "^26.0.13",
+    "chai": "^4.2.0",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.4"
   }
 }

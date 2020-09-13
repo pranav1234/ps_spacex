@@ -55,7 +55,7 @@ export default function Filters({
       </Typography>
       <Divider />
 
-      <Grid spacing={3} container>
+      <Grid container>
         {getYearArray().map(year => (
           <Grid xs={6} sm={2} md={6} item>
             <Button
@@ -74,7 +74,7 @@ export default function Filters({
         Successful Launch
       </Typography>
       <Divider />
-      <Grid spacing={3} container>
+      <Grid container>
         <Grid xs={6} sm={2} md={6} item>
           <Button
             onClick={() => onSuccessLaunchSearch(true)}
