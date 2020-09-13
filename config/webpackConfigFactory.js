@@ -10,6 +10,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const { getAppEnv } = require('./env');
 
@@ -104,6 +105,12 @@ module.exports = function(envType) {
                 require('postcss-flexbugs-fixes'),
                 autoprefixer({
                   flexbox: 'no-2009'
+                }),
+                new TerserPlugin({
+                  parallel: true,
+                  terserOptions: {
+                    ecma: 6
+                  }
                 })
               ]
             }
