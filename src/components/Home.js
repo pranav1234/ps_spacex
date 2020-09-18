@@ -21,7 +21,6 @@ var parseQueryString = function(queryString) {
     temp = queries[i].split('=');
     params[temp[0]] = temp[1];
   }
-
   return params;
 };
 const Home = ({ location, history }) => {
